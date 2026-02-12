@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
 
 permissions:
   contents: write
@@ -12,16 +11,15 @@ permissions:
   id-token: write
 
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+      - name: Checkout code
+        uses: actions/checkout@v4
       
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
@@ -38,21 +36,18 @@ jobs:
           CI: false
           GENERATE_SOURCEMAP: false
       
-      - name: Check build output
+      - name: Verify build
         run: |
-          echo "Checking if build folder exists..."
-          ls -la frontend/
-          if [ -d "frontend/build" ]; then
-            echo "Build folder found!"
-            ls -la frontend/build/ | head -20
-          else
-            echo "ERROR: Build folder not found!"
-            exit 1
-          fi
+          echo "Build files:"
+          ls -la frontend/build/ | head -20
+          echo ""
+          echo "Checking index.html:"
+          file frontend/build/index.html
       
-      - name: Deploy
+      - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./frontend/build
-          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
