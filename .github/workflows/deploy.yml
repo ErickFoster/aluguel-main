@@ -7,8 +7,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 jobs:
   build-and-deploy:
@@ -36,18 +34,16 @@ jobs:
           CI: false
           GENERATE_SOURCEMAP: false
       
-      - name: Verify build
+      - name: Copy build to docs folder
         run: |
-          echo "Build files:"
-          ls -la frontend/build/ | head -20
-          echo ""
-          echo "Checking index.html:"
-          file frontend/build/index.html
+          rm -rf docs
+          cp -r frontend/build docs
+          ls -la docs/
       
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./frontend/build
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
+      - name: Commit and push docs
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          git add docs/
+          git commit -m "Deploy: update docs folder" || echo "No changes to commit"
+          git push origin main
