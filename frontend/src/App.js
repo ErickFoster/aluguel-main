@@ -31,7 +31,7 @@ const PrivateRoute = ({ children }) => {
 function App() {
   return (
     <div className="App">
-      <HashRouter>
+      <HashRouter basename="/aluguel-main">
         <Routes>
           <Route path="/login" element={<Login />} />
           <Route
