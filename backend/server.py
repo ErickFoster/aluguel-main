@@ -97,9 +97,7 @@ async def init_db():
         await db.commit()
 
 # JWT Secret
-JWT_SECRET = os.environ.get('JWT_SECRET', 'your-secret-key-change-in-production')
-JWT_ALGORITHM = 'HS256'
-JWT_EXPIRATION_HOURS = 72
+
 
 # Create uploads directory
 UPLOADS_DIR = ROOT_DIR / 'uploads'
@@ -790,11 +788,10 @@ async def get_historico_cliente(cpf: str, current_user: dict = Depends(get_curre
         row_dict["cliente"] = cliente
         result.append(AluguelResponse(**row_dict))
     return result
-@app.get("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 async def root():
     return {"message": "API Vestidos rodando na Render 🚀"}
 
 app.include_router(api_router)
 
 app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
-
