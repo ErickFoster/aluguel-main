@@ -790,6 +790,9 @@ async def get_historico_cliente(cpf: str, current_user: dict = Depends(get_curre
         row_dict["cliente"] = cliente
         result.append(AluguelResponse(**row_dict))
     return result
+@app.get("/")
+async def root():
+    return {"message": "API Vestidos rodando na Render 🚀"}
 
 app.include_router(api_router)
 
@@ -798,4 +801,4 @@ app.mount("/uploads", StaticFiles(directory=str(UPLOADS_DIR)), name="uploads")
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
