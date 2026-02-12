@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/aluguel-main/static/css/main.737bcb7d.css",
+    "main.js": "/aluguel-main/static/js/main.bd17f900.js",
+    "index.html": "/aluguel-main/index.html",
+    "main.737bcb7d.css.map": "/aluguel-main/static/css/main.737bcb7d.css.map",
+    "main.bd17f900.js.map": "/aluguel-main/static/js/main.bd17f900.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.737bcb7d.css",
+    "static/js/main.bd17f900.js"
+  ]
+}
