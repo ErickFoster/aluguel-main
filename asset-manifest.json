@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.css": "/aluguel-main/static/css/main.a1a848f8.css",
+    "main.js": "/aluguel-main/static/js/main.b42a2f72.js",
+    "index.html": "/aluguel-main/index.html"
+  },
+  "entrypoints": [
+    "static/css/main.a1a848f8.css",
+    "static/js/main.b42a2f72.js"
+  ]
+}
